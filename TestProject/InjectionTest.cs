@@ -10,13 +10,15 @@ namespace TestProject
         [Fact]
         public async Task TestServer_InjectWrongDependencyScope_ThrowException()
         {
-            var host = await Host.CreateDefaultBuilder(Array.Empty<string>())
+            var host = Host.CreateDefaultBuilder(Array.Empty<string>())
                           .ConfigureWebHostDefaults(b =>
                           {
-                              b.UseStartup<Startup>();
                               b.UseTestServer();
+                              b.UseStartup<Startup>();
                           })
-                          .StartAsync();
+                          .Build();
+
+            await host.StartAsync();
 
             var server = host.GetTestServer();
             HttpResponseMessage response = await server.CreateClient().GetAsync("/weatherforecast");
@@ -24,7 +26,7 @@ namespace TestProject
             var json = await response.Content.ReadAsStringAsync();
             Assert.Equal(System.Net.HttpStatusCode.OK, response.StatusCode);
 
-
+            await host.StopAsync();
         }
     }
 }

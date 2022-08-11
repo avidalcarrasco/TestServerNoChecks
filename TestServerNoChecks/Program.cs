@@ -5,11 +5,12 @@ namespace TestServerInjection
     {
         public static Task Main(string[] args)
         {
-            var host = Host.CreateDefaultBuilder(args)
+            return Host.CreateDefaultBuilder(args)
                            .ConfigureWebHostDefaults(b => b.UseStartup<Startup>())
-                           .Build();
+                           .Build()
+                           .RunAsync();
 
-            return host.RunAsync();
+            //return new WebHostBuilder().UseKestrel().UseStartup<Startup>().Build().RunAsync();
         }
     }
 }
