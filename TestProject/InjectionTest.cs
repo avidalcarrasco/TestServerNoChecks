@@ -11,8 +11,9 @@ namespace TestProject
         public async Task TestServer_InjectWrongDependencyScope_ThrowException()
         {
             var host = Host.CreateDefaultBuilder(Array.Empty<string>())
-                          .ConfigureWebHostDefaults(b =>
+                          .ConfigureWebHost(b =>
                           {
+                              b.UseEnvironment("Development");
                               b.UseTestServer();
                               b.UseStartup<Startup>();
                           })

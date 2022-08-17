@@ -1,10 +1,10 @@
 ﻿namespace TestServerNoChecks.Infrastructure
 {
-    public class Singleton : ISingleton
+    public class SingletonInjectingScoped : ISingleton
     {
         private readonly IScoped _scoped;
 
-        public Singleton(IScoped scoped)
+        public SingletonInjectingScoped(IScoped scoped)
         {
             _scoped = scoped;
         }
